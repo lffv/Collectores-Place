@@ -1,0 +1,155 @@
+﻿@model CollectorsPlace.Models.ListNegocio
+
+@{
+    ViewBag.Title = "Trade Proposal";
+}
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+
+                <p><i class="icon-list"></i>Trade Proposal</p>
+        
+            </div>
+
+            <div class="body-home-direita">
+
+                <div class="rule">
+
+                    <div class="space">
+
+                        <div class="display-label">
+                             @Html.DisplayNameFor(model => model.Negocio.ProposalDate):
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Negocio.ProposalDate)
+                        </div>
+
+                        <div class="display-label">
+                             @Html.DisplayNameFor(model => model.Negocio.valor):
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Negocio.valor)
+                        </div>
+
+                        <div class="display-label">
+                             @Html.DisplayNameFor(model => model.Negocio.descricao):
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Negocio.descricao)
+                        </div>
+
+                        <div class="display-label">
+                            Buyer:
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.UserComprador.UserName)
+                        </div>
+
+                        <div class="display-label">
+                             Seller:
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.UserVendedor.UserName)
+                        </div>
+    
+                        <div class="display-label">
+                             Articles to Trade
+
+                        </div>
+                        <div class="display-field">
+                            
+                            <table width="100%" class="tabelaDT2">
+
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    
+                                @foreach (var artigo in Model.Articles)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.Action("Article", "User", new { id=artigo.ArticleId })">
+                                                @artigo.Name
+                                            </a>
+                                        </td>
+                                        
+                                        <td>@artigo.EstimatedValue</td>
+                                    </tr>
+                                }
+
+                                </tbody>
+                            </table>
+
+                        @if(Model.Negocio.UserIdVendedor==Model.Profile.UserId){
+
+                            @* ---------- Se o negocio for para mim  ---------- *@
+                            
+                            <div class="display-field mtop10">
+
+                                @using (Html.BeginForm("RemoveProposta", "Business", new { id = Model.Negocio.NegId }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="Decline" class="botoes" />
+                                }
+                                @using (Html.BeginForm("AcceptBusiness", "Business", new { id = Model.Negocio.NegId }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="Accept" class="botoes float-left" />
+                                }
+
+
+                            </div>
+
+                        }else{
+                            
+                            @* ----- Se o negocio for proposto por mim  -------  *@
+
+                            <div class="display-field mtop10">
+                                @using (Html.BeginForm("RemoveProposta", "Business", new { id = Model.Negocio.NegId }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="Cancel" class="botoes" />
+                                }
+                            </div>
+                            
+                        }
+
+                        </div>
+                    
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables")
+}

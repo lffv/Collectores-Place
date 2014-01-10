@@ -1,0 +1,76 @@
+﻿@model CollectorsPlace.Models.ListarMensagem
+
+@{
+    ViewBag.Title = "Message Details";
+}
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+
+                <p><i class="icon-list"></i>Messages</p>
+        
+            </div>
+
+            <div class="body-home-direita">
+
+                <div class="rule">
+
+                    <div class="space">
+
+                        <div class="display-label">
+                             @Html.DisplayNameFor(model => model.Message.UserProfileSender.UserName)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Message.UserProfileSender.UserName)
+                        </div>
+
+                        <div class="display-label">
+                             @Html.DisplayNameFor(model => model.Message.Title)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Message.Title)
+                        </div>
+
+                        <div class="display-label">
+                             @Html.DisplayNameFor(model => model.Message.Body)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Message.Body)
+                        </div>
+
+                        <div class="display-label">
+                             @Html.DisplayNameFor(model => model.Message.MsgDate)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Message.MsgDate)
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

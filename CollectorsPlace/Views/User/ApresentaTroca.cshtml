@@ -1,0 +1,111 @@
+﻿@model CollectorsPlace.Models.AddPropostaTroca
+
+@{
+    ViewBag.Title = "ApresentaTroca";
+}
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+
+                <p><i class="icon-list"></i>Business</p>
+        
+            </div>
+
+            <div class="body-home-direita">
+
+                <div class="rule">
+
+                    <div class="space">
+
+                        @using (Html.BeginForm()) {
+                            @Html.ValidationSummary(true)
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.Valor)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Valor)
+                                    @Html.ValidationMessageFor(model => model.Valor)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.Descricao)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.TextAreaFor(model => model.Descricao)
+                                    @Html.ValidationMessageFor(model => model.Descricao)
+                                </div>
+                            
+                                <div class="editor-field">
+                            
+                                    <p>Add the following articles to trade:</p>
+
+                                    <table width="100%" class="tabelaDT3">
+
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Item</th>
+                                                <th>Collection</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                        @foreach (var a in Model.Articles)
+                                        {
+                                            <tr>
+                                                <td><input type="checkbox" name="arttroca" value="@a.ArticleId" /></td>
+                                                <td>@a.Name</td>
+                                                <td>@a.UserCollection.Name</td>
+                                                <td>@a.EstimatedValue</td>
+                                            </tr>
+                                        }
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            
+                                <p>
+                                    <input type="submit" value="Add Trade" class="botoes" />
+                                </p>
+ 
+                        }
+                       
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/datatables")
+}
+
+

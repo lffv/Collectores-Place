@@ -1,0 +1,143 @@
+﻿@model CollectorsPlace.Models.ListArticle
+
+@{
+    ViewBag.Title = "Article Details";
+}
+
+<div class="home">
+
+    <div class="home-left">
+
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+        
+            <div class="header-home-direita">
+            
+                <p> <i class="icon-tags"></i> Article: @Html.DisplayFor(model => model.Article.Name) </p>
+        
+            </div>
+            
+            <div class="body-home-direita">
+
+                <div class="rule">
+
+                    <div class="display-row space">
+
+                        <div class="imageArticle">
+
+                            <img src="~/Images/articles/@Model.Article.CollAvatar" title="imagemArt" class="imagem-article" />
+
+                        </div>
+
+                        @*<div class="menusDet">*@
+
+                            <div class="display-row-inner">
+
+                                <p class="titleN">@Html.DisplayNameFor(model => model.Article.AcquiredDate):</p>
+                
+                                <p>@Html.DisplayFor(model => model.Article.AcquiredDate.Date)</p>
+
+                            </div>
+
+            
+                            <div class="display-row-inner2">
+
+                                <p class="titleN">@Html.DisplayNameFor(model => model.Article.EstimatedValue):</p>
+            
+                                <p class="clean">@Html.DisplayFor(model => model.Article.EstimatedValue)</p>
+
+                            </div>
+
+                            <div class="display-row-inner3">
+
+                                <p class="titleN">Collection:</p>
+            
+                                <p class="clean">@Html.ActionLink(@Model.Collection.Name, "Details", "Collections", new { id=Model.Collection.CollId }, null)</p>
+            
+                            </div>
+
+                            <div class="display-row-inner3">
+                                <p class="titleN">Business:</p>
+                                <p class="clean">                                       
+                                    
+                                    @if (Model.Article.BusinessDisponibility == 1){
+                                        <p><label for="bdvenda">Venda</label><input type="checkbox" id="bdvenda" checked="checked" disabled="disabled" /></p>
+                                        <p><label for="bdtroca">Troca</label><input type="checkbox" id="bdtroca" disabled="disabled" /></p>
+                                    }else if (Model.Article.BusinessDisponibility == 2){
+                                        <p><label for="bdvenda">Venda</label><input type="checkbox" id="bdvenda" disabled="disabled" /></p>
+                                        <p><label for="bdtroca">Troca</label><input type="checkbox" id="bdtroca" checked="checked" disabled="disabled" /></p>
+                                    }else if (Model.Article.BusinessDisponibility == 3){
+                                        <p><label for="bdvenda">Venda</label><input type="checkbox" id="bdvenda" checked="checked" disabled="disabled" /></p>
+                                        <p><label for="bdtroca">Troca</label><input type="checkbox" id="bdtroca" checked="checked" disabled="disabled" /></p>
+                                    }else{
+                                        <p><label for="bdvenda">Venda</label><input type="checkbox" id="bdvenda" disabled="disabled" /></p>
+                                        <p><label for="bdtroca">Troca</label><input type="checkbox" id="bdtroca" disabled="disabled" /></p>
+                                    }  
+                                    
+                                </p>
+                            </div>
+
+                            <div class="display-row-inner">
+
+                                <p class="titleN">@Html.DisplayNameFor(model => model.Article.Description):</p>
+                
+                                <p class="clean">@Html.DisplayFor(model => model.Article.Description)</p>
+            
+                            </div>
+
+                        @*</div>*@
+
+                    </div>
+            
+                    <div class="display-row display-rowT">
+                
+                        <p class="titleT titleI">Tags</p>
+            
+                    </div>
+
+                    <div class="display-row">
+
+                        <ul id="tagsro">
+                
+                            @foreach (string s in ViewBag.tags)
+                            {
+                                <li>@s</li>
+                            }
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div id="options">
+                
+                    <button type="button" class="botoes" value="Edit">Edit</button>
+            
+                </div>
+
+            </div>
+    
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryui")*@
+    @Scripts.Render("~/bundles/tagit")
+}

@@ -1,0 +1,61 @@
+﻿@model CollectorsPlace.Models.ListaFollowwings
+
+@{
+    ViewBag.Title = "Following List";
+}
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+
+                <p><i class="icon-list"></i>Collections</p>
+        
+            </div>
+
+            <div class="body-home-direita">
+
+                <div class="rule">
+
+                    <div class="space">
+
+
+                        @foreach (var p in Model.Profile.Following)
+                        {
+                                                        
+                            <div>
+
+                                <a href="@Url.Action("Index", "User", new { id = p.UserId })">
+                                    <img src="~/Images/avatars/@p.UserAvatar" class="float-left" style="margin-left: 40px; width: 140px;" title="@p.UserName" />
+                                </a>
+
+                            </div>
+
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

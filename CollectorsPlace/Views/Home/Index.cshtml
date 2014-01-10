@@ -1,0 +1,74 @@
+﻿@model CollectorsPlace.Models.RecentActivityModel
+@{
+    ViewBag.Title = "Bem-Vindo";
+}
+
+<div class="home">
+
+    <div class="home-left">
+
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    
+    </div>
+
+    <div class="wrap-dir">
+
+        @Html.Partial("_RecomendationsRight", Model.Profile)
+
+        <div class="home-direita">
+        
+            <div class="header-home-direita">
+
+                <p><i class="icon-time"></i>Recent Activity</p>
+
+                @Html.Partial("_search")
+
+            </div>
+
+            <div class="body-home-direita">
+            
+                @if(Model.Activity.Count()>0)
+                {
+
+                    foreach (var a in Model.Activity)
+                    {
+
+                        <div class="activity-container">
+                    
+                            <div class="activity-left">
+
+                                <a href="@Url.Action("Index", "User", new {id=a.User.UserId})">
+                                
+                                    <img src="~/Images/avatars/@a.User.UserAvatar" class="imagem-activity" title="@a.User.UserName" />
+                            
+                                </a>
+
+                            </div>
+                    
+                            <div class="activity-right">
+
+                    
+                                @if (DateTime.Compare(new DateTime(1, 1, 1), a.Date) == 0)
+                                {
+                                    <p class="nameFriend"><span>@Html.ActionLink(a.User.UserName, "Index", "User", new {id=a.User.UserId}, null)</span></p>
+                                }
+                                else 
+                                {
+                                    <p class="nameFriend"><span>@Html.ActionLink(@a.User.UserName, "Index", "User", new {id=a.User.UserId}, null)</span> em @a.Date</p>
+                                }
+
+                                <p class="notificationFriend">@Html.Raw(@a.Description)</p>
+
+                            </div>
+
+                        </div>
+                    }
+                }
+                    
+            </div>
+    
+        </div>
+
+    </div>
+
+</div>

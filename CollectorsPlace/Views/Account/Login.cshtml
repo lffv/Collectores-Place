@@ -1,0 +1,59 @@
+﻿@model CollectorsPlace.Models.LoginModel
+
+@{
+    ViewBag.Title = "Bem-Vindo";
+}
+
+<div id="home">
+
+    <div class="centerHome">
+
+	    @Html.Partial("_ResumeApp")
+    
+        <section id="accounts">
+
+            @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+            
+                <p>@Html.ValidationSummary(true)</p>
+
+                <fieldset id="logind">
+                    <legend></legend>
+			        <ol>
+				        <li class="logindL">
+                            <!-- Se quiser mostrar a mensagem de erro: @Html.ValidationMessageFor(m => m.UserEmail) -->
+                            @Html.TextBoxFor(m => m.UserEmail, new {placeholder = "EMAIL"} )
+				        </li>
+				        <li class="logindL">
+					        @Html.PasswordFor(m => m.Password, new {placeholder = "PASSWORD"})
+                            <!-- Se quiser mostrar a mensagem de erro: @Html.ValidationMessageFor(m => m.Password) -->
+				        </li>
+                        <li class="confirm">
+                            @Html.ActionLink("Forgot Password", "ForgotPassword", "Account")
+                            <button type="submit" value="Sign Up" class="signup signupL">Sign Up</button>
+				        </li>
+			        </ol>
+                </fieldset>
+        
+            }
+
+            @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+
+            <hr />
+
+            <p class="loginReg">Not a member yet? <a href="@Url.Action("Register")">@*<input type="button" value="Register" class="register novo" />*@Register</a> </p>
+
+        </section>
+
+    </div>
+	
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+@*<li class="sameLine">
+    @Html.CheckBoxFor(m => m.RememberMe, new {@class="checkB"})
+    @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+</li>*@     

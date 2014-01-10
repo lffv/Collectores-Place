@@ -1,0 +1,23 @@
+﻿@model ICollection<AuthenticationClientData>
+
+@if (Model.Count > 0)
+{
+    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+    @Html.AntiForgeryToken()
+        <p style="float: left;">
+        @foreach (AuthenticationClientData p in Model)
+        {
+            
+            if(p.AuthenticationClient.ProviderName.ToLower() =="facebook"){
+                <button class="facebook-button" type="submit" name="provider" value="facebook" title="Log in using your Facebook account"></button>
+            }
+            
+            if(p.AuthenticationClient.ProviderName.ToLower() =="google"){
+                <button class="google-button" type="submit" name="provider" value="google" title="Log in using your Google account"></button>
+            }
+            
+        }
+        </p>
+    }
+}

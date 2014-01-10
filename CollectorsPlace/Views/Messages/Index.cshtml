@@ -1,0 +1,102 @@
+﻿@model CollectorsPlace.Models.ListarMensagens
+
+@{
+    ViewBag.Title = "Messages";
+}
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+
+                <p><i class="icon-list"></i>Messages</p>
+        
+            </div>
+
+            <div class="body-home-direita">
+
+                <div class="rule">
+
+                    <div class="space">
+
+                        <table width="100%" class="tabelaDT4">
+
+                            <thead>
+
+                            <tr>
+                                <th>Title</th>
+                                <th>From</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Delete</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            @foreach (var item in Model.Messages) {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Messages", new { id=item.MsgId })">
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Index", "User", new { id=item.UserProfileSender.UserId })">
+                                            @Html.DisplayFor(modelItem => item.UserProfileSender.UserName)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.Raw(item.MsgDate.ToString())
+                                    </td>
+                                    <td>
+
+                                        @if(item.Read==0){
+                                            @Html.Raw("Unread")
+                                        }else{
+                                            @Html.Raw("Read")
+                                        }
+
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Delete", "Delete", "Messages", new { id=item.MsgId }, null)
+                                    </td>
+                                </tr>
+                            }
+
+                            </tbody>
+
+                        </table>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables")
+}
+

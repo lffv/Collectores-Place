@@ -1,0 +1,56 @@
+﻿@model CollectorsPlace.Models.ListarMensagem
+
+@{
+    ViewBag.Title = "Delete Message";
+}
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+
+                <p><i class="icon-list"></i>Messages</p>
+        
+            </div>
+
+            <div class="body-home-direita">
+
+                <div class="rule">
+
+                    <div class="space">
+
+                        <h3>Are you sure you want to delete this?</h3>
+
+                        @using (Html.BeginForm()) {
+                            <p>
+                                <input type="submit" value="Delete" class="botoes" />
+                            </p>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

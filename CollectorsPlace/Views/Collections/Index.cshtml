@@ -1,0 +1,92 @@
+﻿@model CollectorsPlace.Models.ListCollections
+@{
+    ViewBag.Title = "Collections";
+}
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+
+                <p><i class="icon-list"></i>Collections</p>
+        
+            </div>
+
+            <div class="body-home-direita">
+
+                <div class="rule">
+
+                    <div class="space">
+
+                        <table width="100%" class="tabelaDT">
+
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in Model.Collections) {
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink(item.Name, "Details", new { id=item.CollId })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id=item.CollId })
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Delete", "Delete", new { id=item.CollId })
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div id="options">
+                    
+                    <a class="collect" href="@Url.Action("Create")"><input type="button" value="Add Collection" class="botoes" /></a>
+                    <a class="collect" href="@Url.Action("Create","Articles")"><input type="button" value="Add Item" class="botoes" /></a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables")
+}
+

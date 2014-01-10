@@ -1,0 +1,48 @@
+﻿@model CollectorsPlace.Models.UserProfile
+
+<div id="profile">
+
+    <div id="barProfLeft">
+
+        <a href="@Url.Action("Index", "Home")">
+
+            <img src="~/Images/avatars/@Html.DisplayFor(model => model.UserAvatar)" class="imagem-perfil" />
+
+        </a>
+
+        <p class="nameUser">@Html.DisplayFor(model => model.UserName)</p>
+
+    </div>
+
+</div>
+
+<div id="profileMenus">
+
+        <p class="menus"><i class="icon-user"></i>Info</p>
+        <p class="menus"><i class="icon-list"></i>@Html.ActionLink("Collections", "Index", "Collections")<span class="notification">@Model.UserCollection.Count()</span></p>
+        <p class="menus"><i class="icon-comments-alt"></i>@Html.ActionLink("Messages", "Index", "Messages")<span class="notification notM">5</span></p>
+        <p class="menus"><i class="icon-briefcase"></i>@Html.ActionLink("Business", "Index", "Business")<span class="notification notB">1</span></p>
+    
+</div>
+
+<div class="bar-following">
+
+    <p> <i class="icon-group"></i> Following </p>
+
+    <a href=# class="editGroup"> @Html.ActionLink("Edit", "ListaFollow", "User") </a>
+
+</div>
+
+<div id="dvfollowing" class="mini-following">
+    
+    @foreach (var u in Model.Following)
+    {
+        <a href="@Url.Action("Index", "User", new { id = u.UserId })">
+            
+            <img src="~/Images/avatars/@u.UserAvatar" class="mini-followingImg" title="@u.UserName" />
+        
+        </a>
+    }
+
+</div>
+

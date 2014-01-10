@@ -1,0 +1,94 @@
+﻿@model CollectorsPlace.Models.UserPage
+
+@{
+    ViewBag.Title = @Model.User.UserName;
+}
+
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+
+                <p><i class="icon-user"></i>@Model.User.UserName</p>
+        
+            </div>
+
+            <div class="body-home-direita">
+
+                <div id="friendView">
+
+                    <img id="friendPic" src="~/Images/avatars/@Model.User.UserAvatar" class="imagem-perfil space" title="@Model.User.UserName" />
+
+                    <div id="friendStats">
+
+                        <p class="menus"><span>Name:</span> @Model.User.UserName</p>
+                        <p class="menus"><span>Items Sold:</span> 3</p>
+                        <p class="menus"><span>Items Bought:</span> 2</p>
+                        <p class="menus"><span>Rating:</span> Terá Rating Aqui</p>
+                
+                    </div>
+            
+                    <div id="friendOptions">
+
+                        @using (Html.BeginForm("Follow", "User", new { id = Model.User.UserId }, FormMethod.Post, new { id="frmfollow"} ))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            if(Model.Profile.Following.FirstOrDefault(m => m.UserId == Model.User.UserId)!=null)
+                            {
+                                <p><input type="submit" class="botoes unFollow" value="Unfollow" id="btnfollow" /></p>
+                            }
+                            else
+                            {
+                                <p><input type="submit" class="botoes doFollow" value="Follow" id="btnfollow" /></p>
+                            }
+                    
+                        }
+
+                        <p>
+
+                            <a href="@Url.Action("Collections", "User", new { id=@Model.User.UserId })">
+                    
+                                <input type="button" class="botoes" value="Collections" />
+                        
+                            </a>
+                    
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div style="margin-top: 130px;">
+
+                    Terá actividade aqui
+            
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/ajaxcalls")
+}

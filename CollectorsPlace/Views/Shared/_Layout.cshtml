@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - Collectors Place</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/south-street/jquery-ui.css" />
+        <link rel="stylesheet" href="/Content/font-awesome/css/font-awesome.min.css">
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/searchs")
+        @Scripts.Render("~/bundles/recs")
+    </head>
+    <body>
+
+        <header class="inner">
+            <div class="float-left">
+                <h1 class="site-title">@Html.ActionLink("CollectorsPlace", "Index", "Home")</h1>
+			    <h2 class="site-subtitle">Expand your collections</h2>
+            </div>
+            <div class="float-right">
+                <section id="navbarOp">
+                    @Html.Partial("_LoginPartial")
+                </section>
+            </div>
+        </header>
+        <div id="wrapper">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

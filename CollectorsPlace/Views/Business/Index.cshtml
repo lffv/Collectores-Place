@@ -1,0 +1,167 @@
+﻿@model CollectorsPlace.Models.ListNegocios
+@{
+    ViewBag.Title = "Business";
+}
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+
+                <p><i class="icon-list"></i>Business</p>
+        
+            </div>
+
+            <div class="body-home-direita">
+
+                <div class="rule">
+
+                    <div class="space">
+
+                        <p>Transactions Completed</p>
+
+                        <table width="100%" class="tabelaDT2">
+    
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Value</th>
+                                    <th>Date</th>
+                                    <th>Buyer</th>
+                                    <th>Seller</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+
+                            @foreach (var item in Model.Negocios) {
+
+                                var artigo = Model.Articles.FirstOrDefault(a => a.ArticleId == item.ArtId);
+                                
+                                var dataP = item.ProposalDate.ToShortDateString();
+
+                                var userComprador = Model.Users.FirstOrDefault(f => f.UserId == item.UserIdComprador);
+                                var userVendedor = Model.Users.FirstOrDefault(f => f.UserId == item.UserIdVendedor);
+                                
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Article","User", new { id=item.ArtId })">
+                                            @Html.DisplayFor( ar => artigo.Name)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(u => item.valor) €
+                                    </td>
+                                    <td>@Html.Raw(dataP)</td>
+                                    <td>
+                                        @Html.DisplayFor(u => userComprador.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(u => userVendedor.UserName)
+                                    </td>
+                                    <td>
+
+                                        @if (item.tipo == 0){
+                                            @Html.Raw("Sell")
+                                        }
+                                        else{ 
+                                            @Html.Raw("Trade")
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+
+
+
+
+
+                        <p>Pending Transactions</p>
+
+                        <table width="100%" class="tabelaDT2">
+    
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Value</th>
+                                    <th>Date</th>
+                                    <th>Buyer</th>
+                                    <th>Seller</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+
+                            @foreach (var item in Model.NegociosPending) {
+
+                                var artigo = Model.Articles.FirstOrDefault(a => a.ArticleId == item.ArtId);
+                                
+                                var dataP = item.ProposalDate.ToShortDateString();
+
+                                var userComprador = Model.Users.FirstOrDefault(f => f.UserId == item.UserIdComprador);
+                                var userVendedor = Model.Users.FirstOrDefault(f => f.UserId == item.UserIdVendedor);
+                                
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Proposta","Business", new { id=item.NegId })">
+                                            @Html.DisplayFor( ar => artigo.Name)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(u => item.valor) €
+                                    </td>
+                                    <td>@Html.Raw(dataP)</td>
+                                    <td>
+                                        @Html.DisplayFor(u => userComprador.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(u => userVendedor.UserName)
+                                    </td>
+                                    <td>
+
+                                        @if (item.tipo == 0){
+                                            @Html.Raw("Sell")
+                                        }
+                                        else{ 
+                                            @Html.Raw("Trade")
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables")
+}
+

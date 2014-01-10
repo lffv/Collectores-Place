@@ -1,0 +1,119 @@
+﻿@model CollectorsPlace.Models.LocalPasswordModel
+@{
+    ViewBag.Title = "Manage Account";
+}
+
+<div class="home-left">
+
+    @Html.Partial("_ProfileLeft", Model.Profile)
+
+</div>
+
+
+<div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+    <div class="home-direita">
+    
+        <div class="header-home-direita">
+
+            <p> <i class="icon-dashboard"></i> @ViewBag.Title</p>
+    
+        </div>
+
+        <div class="body-home-direita">
+
+            <p class="message-success">@ViewBag.StatusMessage</p>
+
+            <div class="message-logIn">
+
+                <p>You're logged in as <strong>@User.Identity.Name</strong></p>
+
+            </div>
+
+            <div id="avatarZone" >
+
+                <div id="avatarManage" class="space">
+
+                    <div id="uploaded">
+
+                        <img src="~/Images/avatars/@Model.Profile.UserAvatar" id="avatar" class="imagem-perfil" style="width: 170px;" />
+
+                    </div>
+
+                    <input id="avatarupload" type="file" name="avatarupload">
+
+                </div>
+
+                <div id="manageForm">
+
+                    @if (ViewBag.HasLocalPassword)
+                    {
+                        @Html.Partial("_ChangePasswordPartial")
+                    }
+                    else
+                    { 
+                        @Html.Partial("_SetPasswordPartial")
+                    }
+
+                </div>
+
+            </div>
+
+            <div id="externalLogins">
+            
+                @Html.Action("RemoveExternalLogins")
+
+                <p>Add an external login</p>
+
+                @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+        
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/upload")
+
+}
+
+<script>
+
+    $(document).ready(function () {
+
+        var token = "@(Request.Cookies[FormsAuthentication.FormsCookieName]==null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value)";
+        var sessionId = "@Session.SessionID";
+
+        $('#avatarupload').uploadify({
+            auto: true,
+            swf: "/Scripts/uploadify.swf",
+            uploader: "/Account/UploadAvatar/",
+            multi: 'false',
+            fileSizeLimit: '5MB',
+            method: 'post',
+            fileTypeExts: '*.jpg;*.jpeg;*.gif;*.png',
+            fileTypeDesc: 'Image Files',
+            buttonText: 'Choose Avatar',
+            formData: { SessionId: sessionId, Token: token },
+            onUploadSuccess: function (file, data, response) {
+                var timestamp = new Date().getTime();
+                $("#avatar").attr("src", data + "?" + timestamp); // -> Força um refresh da img
+                $(".imagem-perfil").attr("src", data + "?" + timestamp); // -> Força um refresh da img
+            }
+        });
+
+    });
+
+</script>

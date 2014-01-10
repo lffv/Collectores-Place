@@ -1,0 +1,48 @@
+﻿@model CollectorsPlace.Models.EditCollectionModel
+
+@{
+    ViewBag.Title = "Delete Collection";
+}
+
+    <div class="home">
+
+        <div class="home-left">
+            @Html.Partial("_ProfileLeft", Model.Profile)
+        </div>
+
+        <div class="wrap-dir">
+
+            <div class="home-direita-bar">
+
+                <p>Tera Anuncios</p>
+
+                <p>Ou Recomendacoes</p>
+
+            </div>
+
+            <div class="home-direita">
+
+                <div class="header-home-direita">
+                
+                    <p> <i class="icon-list"></i>Delete @Html.DisplayFor(model => model.Name)</p>
+            
+                </div>
+
+                <div class="body-home-direita">
+
+                    <p>Are you sure you want to delete the Collection and all its articles?</p>
+
+                    @using (Html.BeginForm()) {
+                        <p>
+                            <input type="submit" value="Delete" class="botoes" />
+                        </p>
+                    }
+
+                </div>
+        
+            </div>
+
+        </div>
+
+    </div>
+

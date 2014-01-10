@@ -1,0 +1,145 @@
+﻿@model CollectorsPlace.Models.DetailsCollectionModel
+
+@{
+    ViewBag.Title = "Collection Details";
+}
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+
+                <p><i class="icon-list"></i>Collection: @Html.DisplayFor(model => model.Collection.Name)</p>
+
+            </div>
+
+            <div class="body-home-direita">
+            
+                <div class="rule">
+
+                    <div class="display-row space">
+
+                        <div class="imageArticle">
+                        
+                            <img src="~/Images/collections/@Model.Collection.CollAvatar" title="imagemArt" class="imagem-article" />
+                    
+                        </div>
+
+                        <div class="display-row-inner">
+                
+                            <p class="titleI">Collector:</p>
+
+                            <p>
+                                @Html.DisplayFor(model => model.Collection.UserProfile.UserName)
+                            </p>
+            
+                        </div>
+
+                        <div class="display-row-inner">
+                
+                            <p class="titleI">@Html.DisplayNameFor(model => model.Collection.Description):</p>
+            
+                            <p class="clean">
+                    
+                                @Html.DisplayFor(model => model.Collection.Description)
+                
+                            </p>
+            
+                        </div>
+
+                    </div>
+            
+                    <div class="display-row display-rowT">
+      
+                        <p class="title titleT">Tags:</p>
+
+                    </div>
+
+                    <div class="display-row">
+
+                        <ul id="tagsro">
+                
+                            @foreach (string s in ViewBag.tags)
+                            {
+                                <li>@s</li>
+                            }
+
+                        </ul>
+            
+                    </div>
+
+                    <div class="display-row">
+
+                        <p class="title titleC">Itens of Collection:</p>
+            
+                    </div>
+
+                    <div class="display-row">
+
+                        <table>
+                
+                            <thead>
+                    
+                                <tr>
+                        
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Acquired</th>
+                                    <th>Value</th>
+                                    <th colspan="2"></th>
+                    
+                                </tr>
+                
+                            </thead>
+
+                            @foreach (var a in Model.Articles)
+                            {
+                                <tr>
+                                    <td>@Html.ActionLink(@a.Name, "Details", "Articles", new { id=a.ArticleId }, null)</td>
+                                    <td>@a.Description</td>
+                                    <td>@a.AcquiredDate.ToShortDateString()</td>
+                                    <td>@a.EstimatedValue</td>
+                                    <td>@Html.ActionLink("Edit", "Edit", "Articles", new { id=a.ArticleId }, null)</td>
+                                    <td>@Html.ActionLink("Delete", "Delete", "Articles", new { id=a.ArticleId }, null)</td>
+                                </tr>
+                            }
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div id="options">
+                
+                    <button class="botoes" value="Edit">Edit</button>
+            
+                </div>
+
+            </div>
+    
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryui")*@
+    @Scripts.Render("~/bundles/tagit")
+}

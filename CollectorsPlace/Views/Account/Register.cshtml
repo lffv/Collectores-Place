@@ -1,0 +1,54 @@
+﻿@model CollectorsPlace.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div id="home">
+
+    <div class="centerHome">
+
+	    @Html.Partial("_ResumeApp")
+
+        <section id="accounts">
+
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <fieldset id="register">
+                    <legend><i class="icon-bookmark-empty"></i>Register now :</legend>
+                    <ol>
+                        
+                        <li class="logindR">
+                            @Html.TextBoxFor(m => m.UserEmail, new {placeholder = "EMAIL"})
+                        </li>
+                        
+                        <li class="logindR">
+                            @Html.TextBoxFor(m => m.UserName, new {placeholder = "USERNAME"})
+                        </li>
+                        
+                        <li class="logindR">
+                            @Html.PasswordFor(m => m.Password, new {placeholder = "PASSWORD"})
+                        </li>
+                        
+                        <li class="logindR">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new {placeholder = "CONFIRM PASSWORD"})
+                        </li>           
+                        <li class="confirm">
+                            <button type="reset" value="Clear" class="signup signupL">Clear</button>
+                            <button type="submit" value="Register" class="signup signupL">Register</button>
+                        </li>
+                    </ol>
+
+                </fieldset>
+            }
+
+        </section>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

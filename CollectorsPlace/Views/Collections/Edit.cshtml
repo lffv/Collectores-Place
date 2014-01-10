@@ -1,0 +1,158 @@
+﻿@model CollectorsPlace.Models.EditCollectionModel
+
+@{
+    ViewBag.Title = "Edit Collection";
+}
+
+<div class="home">
+
+    <div class="home-left">
+        @Html.Partial("_ProfileLeft", Model.Profile)
+    </div>
+
+    <div class="wrap-dir">
+
+        <div class="home-direita-bar">
+
+            <p>Tera Anuncios</p>
+
+            <p>Ou Recomendacoes</p>
+
+        </div>
+
+        <div class="home-direita">
+
+            <div class="header-home-direita">
+                <p> <i class="icon-list"></i>Edit Collection</p>
+            </div>
+
+            <div class="body-home-direita">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+
+                        @Html.HiddenFor(model => model.CollId)
+
+                            <div class="rule">
+                
+                                <div class="editor-row  space">
+
+                                    <div class="imageArticle">
+                        
+                                        <img src="~/Images/collections/@Model.CollAvatar" title="imagemArt" class="imagem-article" id="imgColl" />
+                    
+                                        <div class="alignImgBott">
+                                            
+                                            <input id="collupload" type="file" name="collupload">
+
+                                        </div>
+                    
+                                    </div>
+
+                                    <div class="editor-row-inner">
+                        
+                                        @Html.LabelFor(model => model.Name)
+                        
+                                        @Html.EditorFor(model => model.Name)
+                                        @Html.ValidationMessageFor(model => model.Name)
+                    
+                                    </div>
+
+                                    <div class="editor-row-innerC">
+
+                                        @Html.LabelFor(model => model.Description)
+                                    
+                                        <div class="textwrap">
+                                        
+                                            @Html.TextAreaFor(model => model.Description)
+                                            @Html.ValidationMessageFor(model => model.Description)
+                                    
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                
+                                </div>
+                
+                                <div class="editor-row space">
+
+                                    <p class="tagH">Tags</p>
+                    
+                                </div>
+                    
+                                <div class="editor-row space">
+
+                                    <ul id="tags">
+
+                                        @if (ViewBag.tags != null)
+                                        {
+                                            foreach (string s in ViewBag.tags)
+                                            {
+                                                <li>@s</li>
+                                            }
+                                        }
+
+                                    </ul>
+
+                                    @if(ViewBag.tags==null){
+                                        <span class="field-validation-error">Tags Empty</span>
+                                    }
+
+                                </div>
+                    
+                        </div>
+
+                        <div id="options">
+                
+                            <input type="submit" class="botoes" value="Save" />
+
+                            <button type="reset" class="botoes" value="Edit"> Cancel </button>
+            
+                        </div>
+
+                }
+
+            </div>
+        
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles/jqueryui")*@
+    @Scripts.Render("~/bundles/tagit")
+    @Scripts.Render("~/bundles/upload")
+}
+
+<script>
+
+    $(document).ready(function () {
+
+        var token = "@(Request.Cookies[FormsAuthentication.FormsCookieName]==null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value)";
+        var sessionId = "@Session.SessionID";
+
+        $('#collupload').uploadify({
+            auto: true,
+            swf: "/Scripts/uploadify.swf",
+            uploader: "/Collections/UploadImage/",
+            multi: 'false',
+            fileSizeLimit: '5MB',
+            method: 'post',
+            fileTypeExts: '*.jpg;*.jpeg;*.gif;*.png',
+            fileTypeDesc: 'Image Files',
+            buttonText: 'Choose Image',
+            formData: { SessionId: sessionId, Token: token, id:"@Model.CollId" },
+            onUploadSuccess: function (file, data, response) {
+                var timestamp = new Date().getTime();
+                $("#imgColl").attr("src", data + "?" + timestamp); // -> Força um refresh da img
+            }
+        });
+
+    });
+
+</script>
